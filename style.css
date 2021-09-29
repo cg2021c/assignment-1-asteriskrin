@@ -1,0 +1,8 @@
+table.identity {
+    border: 0.2em solid skyblue;
+    padding: 1em;
+}
+.grid {
+    display: grid;
+    grid-template-columns: 25% 75%;
+}
