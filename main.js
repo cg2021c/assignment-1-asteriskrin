@@ -92,7 +92,7 @@ function main() {
 
     space.addShapeGroup(charger1);
     
-    let colokanSpeed = 0.009;
+    let colokanSpeed = 0.0063;
     let charger1_DELTA = -0.3; 
     function animatecharger1() {
         charger1.translate(0.0, colokanSpeed);
