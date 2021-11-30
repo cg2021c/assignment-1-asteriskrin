@@ -489,13 +489,13 @@ function main() {
     var uAmbientIntensity = gl.getUniformLocation(shaderProgram, "uAmbientIntensity");
     // gl.uniform3fv(uAmbientConstant, [1.0, 0.5, 0.0]);    // orange light
     gl.uniform3fv(uAmbientConstant, [1.0, 1.0, 1.0]);       // white light
-    gl.uniform1f(uAmbientIntensity, 0.2); // 20% of light
+    gl.uniform1f(uAmbientIntensity, 0.263); // 0.200 + 0.063
     // DIFFUSE
     var uDiffuseConstant = gl.getUniformLocation(shaderProgram, "uDiffuseConstant");
     var uLightPosition = gl.getUniformLocation(shaderProgram, "uLightPosition");
     var uNormalModel = gl.getUniformLocation(shaderProgram, "uNormalModel");
     gl.uniform3fv(uDiffuseConstant, [1.0, 1.0, 1.0]);   // white light
-    gl.uniform3fv(uLightPosition, [-1.0, 1.0, 1.0]);    // light position
+    gl.uniform3fv(uLightPosition, [-2.0, 0.0, -5.0]);    // light position
 
     // Perspective projection
     var uProjection = gl.getUniformLocation(shaderProgram, "uProjection");
@@ -568,9 +568,9 @@ function main() {
             changeY = changeY + speedY;
             var modelMatrix = glMatrix.mat4.create();
             // glMatrix.mat4.scale(modelMatrix, modelMatrix, [changeY, changeY, changeY]);
+            glMatrix.mat4.translate(modelMatrix, modelMatrix, [-3.0, 0.0, -5.0]);
             glMatrix.mat4.rotate(modelMatrix, modelMatrix, changeX, [0.0, 0.0, 1.0]);   // Rotation about Z axis
             glMatrix.mat4.rotate(modelMatrix, modelMatrix, changeY * 2.0, [0.0, 1.0, 0.0]);   // Rotation about Y axis
-            // glMatrix.mat4.translate(modelMatrix, modelMatrix, [changeX, changeY, 0.0]);
             gl.uniformMatrix4fv(uModel, false, modelMatrix);
             var normalModelMatrix = glMatrix.mat3.create();
             glMatrix.mat3.normalFromMat4(normalModelMatrix, modelMatrix);
