@@ -592,3 +592,7 @@ function main() {
     }
     requestAnimationFrame(render);
 }
+
+window.onload = () => {
+    main();
+};
