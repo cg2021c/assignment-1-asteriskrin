@@ -397,18 +397,21 @@ function main() {
     cube.setIndices(cube_indices);
     cube.setPosition([0.0, 0.0, -5.0]);
     cube.setScale([0.3, 0.3, 0.3]);
+    cube.setRotation([0.0, 0.0, 0.0]);
 
     var charger = new MyObject(gl);
     charger.setVertices(charger_vertices);
     charger.setIndices(charger_indices);
     charger.setPosition([-3.0, 0.0, -5.0]);
     charger.setScale([1.0, 1.0, 1.0]);
+    charger.setRotation([40.0/180.0*Math.PI, 120.0/180.0*Math.PI, 0.0/180.0*Math.PI]);
 
     var charger2 = new MyObject(gl);
     charger2.setVertices(charger_vertices);
     charger2.setIndices(charger_indices);
     charger2.setPosition([3.0, 0.0, -5.0]);
     charger2.setScale([1.0, 1.0, 1.0]);
+    charger2.setRotation([0.0/180.0*Math.PI, 260.0/180.0*Math.PI, 330.0/180.0*Math.PI]);
 
     // Create a linked-list for storing the vertices data
     var vertexBuffer = gl.createBuffer();
@@ -519,8 +522,9 @@ function main() {
         var modelMatrix = glMatrix.mat4.create();
         glMatrix.mat4.scale(modelMatrix, modelMatrix, obj.scale);
         glMatrix.mat4.translate(modelMatrix, modelMatrix, obj.position);
-        // glMatrix.mat4.rotate(modelMatrix, modelMatrix, changeX, [0.0, 0.0, 1.0]);   // Rotation about Z axis
-        // glMatrix.mat4.rotate(modelMatrix, modelMatrix, changeY * 2.0, [0.0, 1.0, 0.0]);   // Rotation about Y axis
+        glMatrix.mat4.rotate(modelMatrix, modelMatrix, obj.rotation[0], [1.0, 0.0, 0.0]);   // Rotation about X axis
+        glMatrix.mat4.rotate(modelMatrix, modelMatrix, obj.rotation[1], [0.0, 1.0, 0.0]);   // Rotation about Y axis
+        glMatrix.mat4.rotate(modelMatrix, modelMatrix, obj.rotation[2], [0.0, 0.0, 1.0]);   // Rotation about Z axis
         gl.uniformMatrix4fv(uModel, false, modelMatrix);
         var normalModelMatrix = glMatrix.mat3.create();
         glMatrix.mat3.normalFromMat4(normalModelMatrix, modelMatrix);
