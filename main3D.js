@@ -404,6 +404,12 @@ function main() {
     charger.setPosition([-3.0, 0.0, -5.0]);
     charger.setScale([1.0, 1.0, 1.0]);
 
+    var charger2 = new MyObject(gl);
+    charger2.setVertices(charger_vertices);
+    charger2.setIndices(charger_indices);
+    charger2.setPosition([3.0, 0.0, -5.0]);
+    charger2.setScale([1.0, 1.0, 1.0]);
+
     // Create a linked-list for storing the vertices data
     var vertexBuffer = gl.createBuffer();
     
@@ -569,6 +575,7 @@ function main() {
         }
         draw(charger);
         draw(cube);
+        draw(charger2);
         requestAnimationFrame(render);
     }
     requestAnimationFrame(render);
