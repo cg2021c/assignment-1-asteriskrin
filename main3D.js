@@ -499,7 +499,7 @@ function main() {
         var uLightPosition = gl.getUniformLocation(obj.shaderProgram, "uLightPosition");
         var uNormalModel = gl.getUniformLocation(obj.shaderProgram, "uNormalModel");
         gl.uniform3fv(uDiffuseConstant, [1.0, 1.0, 1.0]);   // white light
-        gl.uniform3fv(uLightPosition, [-2.0, 0.0, -5.0]);    // light position
+        gl.uniform3fv(uLightPosition, cube.position);    // light position
 
         // Perspective projection
         var uProjection = gl.getUniformLocation(obj.shaderProgram, "uProjection");
