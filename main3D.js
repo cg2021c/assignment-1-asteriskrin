@@ -32,7 +32,6 @@ function main() {
     world.addObject(charger2, false); // No need to push vertex for the 2nd charger
     world.addObject(cube);
     world.updateBuffer();
-
     function render() {
         world.render(cube, camera);
         requestAnimationFrame(render);
@@ -48,8 +47,10 @@ function main() {
         if (event.keyCode == 87) cube.move([0.0, CUBE_MOVE_SPEED, 0.0]); // W
         if (event.keyCode == 83) cube.move([0.0, -CUBE_MOVE_SPEED, 0.0]); // S
         // Additional key
-        if (event.keyCode == 37) cube.move([CUBE_MOVE_SPEED, 0.0, 0.0]); // Left
-        if (event.keyCode == 39) cube.move([-CUBE_MOVE_SPEED, 0.0, 0.0]); // Right
+        if (event.keyCode == 37) cube.move([-CUBE_MOVE_SPEED, 0.0, 0.0]); // Left
+        if (event.keyCode == 39) cube.move([CUBE_MOVE_SPEED, 0.0, 0.0]); // Right
+        if (event.keyCode == 90) cube.move([0.0, 0.0, -CUBE_MOVE_SPEED]); // Z
+        if (event.keyCode == 88) cube.move([0.0, 0.0, CUBE_MOVE_SPEED]); // X
         document.getElementById("cameraX").innerHTML = camera.cameraX;
         document.getElementById("cameraY").innerHTML = camera.cameraY;
         document.getElementById("cameraZ").innerHTML = camera.cameraZ;
