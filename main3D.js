@@ -21,7 +21,7 @@ function main() {
     var charger = new ChargerObjectPlastic(gl);
     charger.setPosition([-3.0, 0.0, -5.0]);
     charger.setScale([1.0, 1.0, 1.0]);
-    charger.setRotation([40.0/180.0*Math.PI, 120.0/180.0*Math.PI, 0.0/180.0*Math.PI]);
+    charger.setRotation([50.0/180.0*Math.PI, 120.0/180.0*Math.PI, 15.0/180.0*Math.PI]);
 
     var charger2 = new ChargerObject(gl);
     charger2.setPosition([3.0, 0.0, -5.0]);
