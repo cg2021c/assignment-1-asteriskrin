@@ -448,96 +448,6 @@ function main() {
     gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertices), gl.STATIC_DRAW);
     gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, indexBuffer);
     gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, new Uint16Array(indices), gl.STATIC_DRAW);
-    
-    function draw(obj) {
-
-        // Start using the context (analogy: start using the paints and the brushes)
-        gl.useProgram(obj.shaderProgram);
-
-        // Teach the computer how to collect
-        //  the positional values from ARRAY_BUFFER
-        //  to each vertex being processed
-        var aPosition = gl.getAttribLocation(obj.shaderProgram, "aPosition");
-        gl.vertexAttribPointer(
-            aPosition, 
-            3, 
-            gl.FLOAT, 
-            false, 
-            9 * Float32Array.BYTES_PER_ELEMENT, 
-            0
-        );
-        gl.enableVertexAttribArray(aPosition);
-        var aColor = gl.getAttribLocation(obj.shaderProgram, "aColor");
-        gl.vertexAttribPointer(
-            aColor,
-            3,
-            gl.FLOAT,
-            false, 
-            9 * Float32Array.BYTES_PER_ELEMENT,
-            3 * Float32Array.BYTES_PER_ELEMENT
-        );
-        gl.enableVertexAttribArray(aColor);
-        var aNormal = gl.getAttribLocation(obj.shaderProgram, "aNormal");
-        gl.vertexAttribPointer(
-            aNormal,
-            3,
-            gl.FLOAT,
-            false, 
-            9 * Float32Array.BYTES_PER_ELEMENT,
-            6 * Float32Array.BYTES_PER_ELEMENT
-        );
-        gl.enableVertexAttribArray(aNormal);
-
-        // Lighting and Shading
-        // AMBIENT
-        var uAmbientConstant = gl.getUniformLocation(obj.shaderProgram, "uAmbientConstant");
-        var uAmbientIntensity = gl.getUniformLocation(obj.shaderProgram, "uAmbientIntensity");
-        // gl.uniform3fv(uAmbientConstant, [1.0, 0.5, 0.0]);    // orange light
-        gl.uniform3fv(uAmbientConstant, [1.0, 1.0, 1.0]);       // white light
-        gl.uniform1f(uAmbientIntensity, 0.263); // 0.200 + 0.063
-        // DIFFUSE
-        var uDiffuseConstant = gl.getUniformLocation(obj.shaderProgram, "uDiffuseConstant");
-        var uLightPosition = gl.getUniformLocation(obj.shaderProgram, "uLightPosition");
-        var uNormalModel = gl.getUniformLocation(obj.shaderProgram, "uNormalModel");
-        gl.uniform3fv(uDiffuseConstant, [1.0, 1.0, 1.0]);   // white light
-        gl.uniform3fv(uLightPosition, cube.position);    // light position
-
-        // Perspective projection
-        var uProjection = gl.getUniformLocation(obj.shaderProgram, "uProjection");
-        var perspectiveMatrix = glMatrix.mat4.create();
-        glMatrix.mat4.perspective(perspectiveMatrix, Math.PI/3, 1.0, 0.5, 10.0);
-        gl.uniformMatrix4fv(uProjection, false, perspectiveMatrix);
-
-        
-        var uView = gl.getUniformLocation(obj.shaderProgram, "uView");
-        gl.uniformMatrix4fv(uView, false, viewMatrix);
-        
-        // SPECULAR
-        var uSpecularConstant = gl.getUniformLocation(obj.shaderProgram, "uSpecularConstant");
-        var uViewerPosition = gl.getUniformLocation(obj.shaderProgram, "uViewerPosition");
-        gl.uniform3fv(uSpecularConstant, [1.0, 1.0, 1.0]);  // white light
-        gl.uniform3fv(uViewerPosition, [cameraX, cameraY, cameraZ]);
-
-        var uModel = gl.getUniformLocation(obj.shaderProgram, "uModel");
-        
-        var modelMatrix = glMatrix.mat4.create();
-        glMatrix.mat4.scale(modelMatrix, modelMatrix, obj.scale);
-        glMatrix.mat4.translate(modelMatrix, modelMatrix, obj.position);
-        glMatrix.mat4.rotate(modelMatrix, modelMatrix, obj.rotation[0], [1.0, 0.0, 0.0]);   // Rotation about X axis
-        glMatrix.mat4.rotate(modelMatrix, modelMatrix, obj.rotation[1], [0.0, 1.0, 0.0]);   // Rotation about Y axis
-        glMatrix.mat4.rotate(modelMatrix, modelMatrix, obj.rotation[2], [0.0, 0.0, 1.0]);   // Rotation about Z axis
-        gl.uniformMatrix4fv(uModel, false, modelMatrix);
-        var normalModelMatrix = glMatrix.mat3.create();
-        glMatrix.mat3.normalFromMat4(normalModelMatrix, modelMatrix);
-        gl.uniformMatrix3fv(uNormalModel, false, normalModelMatrix);
-            
-        var primitive = gl.TRIANGLES;
-
-        var offset, nVertex;
-        offset = obj.offset;
-        nVertex = obj.indices.length;
-        gl.drawElements(primitive, nVertex, gl.UNSIGNED_SHORT, offset);
-    }
 
     var freeze = false;
     // Interactive graphics with mouse
@@ -578,9 +488,9 @@ function main() {
         if (!freeze) {
 
         }
-        draw(charger);
-        draw(cube);
-        draw(charger2);
+        charger.draw(gl, cube, viewMatrix);
+        cube.draw(gl, cube, viewMatrix);
+        charger2.draw(gl, cube, viewMatrix);
         requestAnimationFrame(render);
     }
     requestAnimationFrame(render);
