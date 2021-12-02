@@ -1,5 +1,6 @@
 import Camera from "./lib/3D/Camera.js";
 import ChargerObject from "./lib/3D/ChargerObject.js";
+import ChargerObjectPlastic from "./lib/3D/ChargerObjectPlastic.js";
 import LightObject from "./lib/3D/LightObject.js";
 import World from "./lib/3D/World.js";
 
@@ -17,7 +18,7 @@ function main() {
     cube.setRotation([45.0/180.0*Math.PI, 45.0/180.0*Math.PI, 45.0/180.0*Math.PI]);
     cube.setIntensity(0.200+0.063); // The last 3 digits of my NRP is 063, then the intensity is set to 0.200 + 0.063 = 0.263
 
-    var charger = new ChargerObject(gl);
+    var charger = new ChargerObjectPlastic(gl);
     charger.setPosition([-3.0, 0.0, -5.0]);
     charger.setScale([1.0, 1.0, 1.0]);
     charger.setRotation([40.0/180.0*Math.PI, 120.0/180.0*Math.PI, 0.0/180.0*Math.PI]);
