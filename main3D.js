@@ -47,6 +47,9 @@ function main() {
         if (event.keyCode == 40) camera.moveCamera(0.0, 0.0, 0.1); // Down
         if (event.keyCode == 87) cube.move([0.0, CUBE_MOVE_SPEED, 0.0]); // W
         if (event.keyCode == 83) cube.move([0.0, -CUBE_MOVE_SPEED, 0.0]); // S
+        // Additional key
+        if (event.keyCode == 37) cube.move([CUBE_MOVE_SPEED, 0.0, 0.0]); // Left
+        if (event.keyCode == 39) cube.move([-CUBE_MOVE_SPEED, 0.0, 0.0]); // Right
         document.getElementById("cameraX").innerHTML = camera.cameraX;
         document.getElementById("cameraY").innerHTML = camera.cameraY;
         document.getElementById("cameraZ").innerHTML = camera.cameraZ;
