@@ -8,7 +8,7 @@ function main() {
 
     var cube = new LightObject(gl);
     cube.setPosition([0.0, 0.0, -5.0]);
-    cube.setScale([0.3, 0.3, 0.3]);
+    cube.setScale([0.075, 0.075, 0.075]);
     cube.setRotation([45.0/180.0*Math.PI, 45.0/180.0*Math.PI, 45.0/180.0*Math.PI]);
     cube.setIntensity(0.200+0.063); // NRP = 63
 
