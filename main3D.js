@@ -1,3 +1,4 @@
+import Camera from "./lib/3D/Camera.js";
 import ChargerObject from "./lib/3D/ChargerObject.js";
 import LightObject from "./lib/3D/LightObject.js";
 
@@ -5,6 +6,9 @@ function main() {
     // Access the canvas through DOM: Document Object Model
     var canvas = document.getElementById('myCanvas');   // The paper
     var gl = canvas.getContext('webgl');                // The brush and the paints
+
+    var camera = new Camera();
+    camera.setPosition(0.3, 0.5, 3.1);
 
     var cube = new LightObject(gl);
     cube.setPosition([0.0, 0.0, -5.0]);
@@ -40,18 +44,6 @@ function main() {
 
     console.log(indices);
     console.log(vertices);
-
-    // Interactive graphics with keyboard
-    var cameraX = 0.3;
-    var cameraY = 0.5;
-    var cameraZ = 3.1;
-    var viewMatrix = glMatrix.mat4.create();
-    glMatrix.mat4.lookAt(
-        viewMatrix,
-        [cameraX, cameraY, cameraZ],    // the location of the eye or the camera
-        [cameraX, 0.0, -10],        // the point where the camera look at
-        [0.0, 1.0, 0.0]
-    );
     
     gl.bindBuffer(gl.ARRAY_BUFFER, vertexBuffer);
     gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertices), gl.STATIC_DRAW);
@@ -67,22 +59,15 @@ function main() {
 
     function onKeydown(event) {
         if (event.keyCode == 32) freeze = true;
-        if (event.keyCode == 65) cameraX -= 0.1; // A
-        if (event.keyCode == 38) cameraZ -= 0.1; // Up
-        if (event.keyCode == 68) cameraX += 0.1; // D
-        if (event.keyCode == 40) cameraZ += 0.1; // Down
-        if (event.keyCode == 90) cameraY += 0.1; // Z
+        if (event.keyCode == 65) camera.moveCamera(-0.1, 0.0, 0.0); // A
+        if (event.keyCode == 38) camera.moveCamera(0.0, 0.0, -0.1); // Up
+        if (event.keyCode == 68) camera.moveCamera(0.1, 0.0, 0.0); // D
+        if (event.keyCode == 40) camera.moveCamera(0.0, 0.0, 0.1); // Down
         if (event.keyCode == 87) cube.move([0.0, 0.1, 0.0]); // W
         if (event.keyCode == 83) cube.move([0.0, -0.1, 0.0]); // S
-        glMatrix.mat4.lookAt(
-            viewMatrix,
-            [cameraX, cameraY, cameraZ],    // the location of the eye or the camera
-            [cameraX, 0.0, -10],        // the point where the camera look at
-            [0.0, 1.0, 0.0]
-        );
-        document.getElementById("cameraX").innerHTML = cameraX;
-        document.getElementById("cameraY").innerHTML = cameraY;
-        document.getElementById("cameraZ").innerHTML = cameraZ;
+        document.getElementById("cameraX").innerHTML = camera.cameraX;
+        document.getElementById("cameraY").innerHTML = camera.cameraY;
+        document.getElementById("cameraZ").innerHTML = camera.cameraZ;
     }
     function onKeyup(event) {
         if (event.keyCode == 32) freeze = false;
@@ -97,9 +82,9 @@ function main() {
         if (!freeze) {
 
         }
-        charger.draw(gl, cube, viewMatrix);
-        cube.draw(gl, cube, viewMatrix);
-        charger2.draw(gl, cube, viewMatrix);
+        charger.draw(gl, cube, camera.viewMatrix);
+        cube.draw(gl, cube, camera.viewMatrix);
+        charger2.draw(gl, cube, camera.viewMatrix);
         requestAnimationFrame(render);
     }
     requestAnimationFrame(render);
