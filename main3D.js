@@ -50,13 +50,6 @@ function main() {
     gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, indexBuffer);
     gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, new Uint16Array(indices), gl.STATIC_DRAW);
 
-    var freeze = false;
-    // Interactive graphics with mouse
-    function onMouseClick(event) {
-        freeze = !freeze;
-    }
-    document.addEventListener("click", onMouseClick);
-
     function onKeydown(event) {
         if (event.keyCode == 32) freeze = true;
         if (event.keyCode == 65) camera.moveCamera(-0.1, 0.0, 0.0); // A
@@ -69,19 +62,13 @@ function main() {
         document.getElementById("cameraY").innerHTML = camera.cameraY;
         document.getElementById("cameraZ").innerHTML = camera.cameraZ;
     }
-    function onKeyup(event) {
-        if (event.keyCode == 32) freeze = false;
-    }
     document.addEventListener("keydown", onKeydown);
-    document.addEventListener("keyup", onKeyup);
 
     function render() {
         gl.enable(gl.DEPTH_TEST);
         gl.clearColor(0.0, 0.0, 0.0, 1.0);
         gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
-        if (!freeze) {
 
-        }
         charger.draw(gl, cube, camera.viewMatrix);
         cube.draw(gl, cube, camera.viewMatrix);
         charger2.draw(gl, cube, camera.viewMatrix);
