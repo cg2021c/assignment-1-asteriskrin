@@ -1,3 +1,4 @@
+import LightObject from "./lib/3D/LightObject.js";
 import MyObject from "./lib/3D/MyObject.js";
 
 function main() {
@@ -392,12 +393,13 @@ function main() {
         20, 21, 22,  20, 22, 23,  // Face F     
     ];
 
-    var cube = new MyObject(gl);
+    var cube = new LightObject(gl);
     cube.setVertices(cube_vertices);
     cube.setIndices(cube_indices);
     cube.setPosition([0.0, 0.0, -5.0]);
     cube.setScale([0.3, 0.3, 0.3]);
-    cube.setRotation([0.0, 0.0, 0.0]);
+    cube.setRotation([45.0/180.0*Math.PI, 45.0/180.0*Math.PI, 45.0/180.0*Math.PI]);
+    cube.setIntensity(0.200+0.063); // NRP = 63
 
     var charger = new MyObject(gl);
     charger.setVertices(charger_vertices);
