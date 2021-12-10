@@ -46,8 +46,26 @@ function main() {
     }
     requestAnimationFrame(render);
 
+    var CUBE_MOVE_SPEED = 0.3;
+    var CAMERA_MOVE_SPEED = 0.1;
     function onKeydown(event) {
         if (event.keyCode == 32) cube.switchLight(); // Space bar
+        // When W key is pressed, the cube (as the light source) moves to Z-.
+        else if (event.keyCode == 87) cube.move([0.0, 0.0, -CUBE_MOVE_SPEED]);
+        // When S key is pressed, the cube moves to Z+.
+        else if (event.keyCode == 83) cube.move([0.0, 0.0, CUBE_MOVE_SPEED]);
+        // When A key is pressed, the cube moves to X-.
+        else if (event.keyCode == 65) cube.move([-CUBE_MOVE_SPEED, 0.0, 0.0]);
+        // When D is pressed, the cube moves to X+.
+        else if (event.keyCode == 68) cube.move([CUBE_MOVE_SPEED, 0.0, 0.0]);
+        // When Up key is pressed, the camera zooms in.
+        else if (event.keyCode == 38) camera.moveCamera(0.0, 0.0, -CAMERA_MOVE_SPEED);
+        // When Down key is pressed, the camera zooms out.
+        else if (event.keyCode == 40) camera.moveCamera(0.0, 0.0, CAMERA_MOVE_SPEED);
+        // When Left or Right key is pressed, the camera move to leftward or right ward respectively 
+        //  in an orbital manner about the center of the space. 
+        else if (event.keyCode == 37) camera.moveCameraLookX(-0.1); // Left
+        else if (event.keyCode == 39) camera.moveCameraLookX(0.1); // Right
     }
     document.addEventListener("keydown", onKeydown);
     
