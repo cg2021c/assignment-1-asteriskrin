@@ -14,7 +14,7 @@ function main() {
     camera.setPosition(0.3, 0.5, 2.1);
 
     var cube = new LightObject(gl);
-    cube.setPosition([0.0, 0.0, -5.0]);
+    cube.setPosition([0.0, 1.0, -5.0]);
     cube.setScale([0.075, 0.075, 0.075]);
     cube.setRotation([45.0/180.0*Math.PI, 45.0/180.0*Math.PI, 45.0/180.0*Math.PI]);
     cube.setIntensity(0.200+0.063); // The last 3 digits of my NRP is 063, then the intensity is set to 0.200 + 0.063 = 0.263
@@ -45,6 +45,11 @@ function main() {
         requestAnimationFrame(render);
     }
     requestAnimationFrame(render);
+
+    function onKeydown(event) {
+        if (event.keyCode == 32) cube.switchLight(); // Space bar
+    }
+    document.addEventListener("keydown", onKeydown);
     
     // Update camera location text in the HTML document
     document.getElementById("cameraX").innerHTML = camera.cameraX;
