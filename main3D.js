@@ -39,24 +39,10 @@ function main() {
     }
     requestAnimationFrame(render);
     
-    var CUBE_MOVE_SPEED = 0.3;
-    function onKeydown(event) {
-        if (event.keyCode == 65) camera.moveCamera(-0.1, 0.0, 0.0); // A
-        if (event.keyCode == 38) camera.moveCamera(0.0, 0.0, -0.1); // Up
-        if (event.keyCode == 68) camera.moveCamera(0.1, 0.0, 0.0); // D
-        if (event.keyCode == 40) camera.moveCamera(0.0, 0.0, 0.1); // Down
-        if (event.keyCode == 87) cube.move([0.0, CUBE_MOVE_SPEED, 0.0]); // W
-        if (event.keyCode == 83) cube.move([0.0, -CUBE_MOVE_SPEED, 0.0]); // S
-        // Additional key
-        if (event.keyCode == 37) cube.move([-CUBE_MOVE_SPEED, 0.0, 0.0]); // Left
-        if (event.keyCode == 39) cube.move([CUBE_MOVE_SPEED, 0.0, 0.0]); // Right
-        if (event.keyCode == 90) cube.move([0.0, 0.0, -CUBE_MOVE_SPEED]); // Z
-        if (event.keyCode == 88) cube.move([0.0, 0.0, CUBE_MOVE_SPEED]); // X
-        document.getElementById("cameraX").innerHTML = camera.cameraX;
-        document.getElementById("cameraY").innerHTML = camera.cameraY;
-        document.getElementById("cameraZ").innerHTML = camera.cameraZ;
-    }
-    document.addEventListener("keydown", onKeydown);
+    // Update camera location text in the HTML document
+    document.getElementById("cameraX").innerHTML = camera.cameraX;
+    document.getElementById("cameraY").innerHTML = camera.cameraY;
+    document.getElementById("cameraZ").innerHTML = camera.cameraZ;
 }
 
 window.onload = () => {
