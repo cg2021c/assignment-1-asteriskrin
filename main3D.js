@@ -2,6 +2,7 @@ import Camera from "./lib/3D/Camera.js";
 import ChargerObject from "./lib/3D/ChargerObject.js";
 import ChargerObjectPlastic from "./lib/3D/ChargerObjectPlastic.js";
 import LightObject from "./lib/3D/LightObject.js";
+import Plane from "./lib/3D/Plane.js";
 import World from "./lib/3D/World.js";
 
 function main() {
@@ -10,7 +11,7 @@ function main() {
     var gl = canvas.getContext('webgl');                // The brush and the paints
 
     var camera = new Camera();
-    camera.setPosition(0.3, 0.5, 3.1);
+    camera.setPosition(0.3, 0.5, 2.1);
 
     var cube = new LightObject(gl);
     cube.setPosition([0.0, 0.0, -5.0]);
@@ -28,9 +29,15 @@ function main() {
     charger2.setScale([1.0, 1.0, 1.0]);
     charger2.setRotation([0.0/180.0*Math.PI, 260.0/180.0*Math.PI, 330.0/180.0*Math.PI]);
 
+    var plane = new Plane(gl);
+    plane.setScale([20.0, 20.0, 20.0]);
+    plane.setPosition([-5.0, -1.0, -12.5]);
+    plane.setRotation([0.0/180.0*Math.PI, 0.0/180.0*Math.PI, 0.0/180.0*Math.PI]);
+
     var world = new World(gl);
     world.addObject(charger);
     world.addObject(charger2, false); // No need to push vertex for the 2nd charger
+    world.addObject(plane);
     world.addObject(cube);
     world.updateBuffer();
     function render() {
